@@ -71,5 +71,16 @@ class BeasiswaController extends Controller
         return redirect()->route('beasiswa.index')->with('success', 'Beasiswa berhasil dihapus!');
 
     }
+    
+    public function favorite($id)
+{
+    $mahasiswa = auth()->guard('mahasiswa')->user();
+    $beasiswa = Beasiswa::findOrFail($id);
+
+    $mahasiswa->favoritBeasiswas()->syncWithoutDetaching([$beasiswa->id]);
+
+    return redirect()->back()->with('success', 'Beasiswa ditambahkan ke favorit!');
+}
+
 
 }

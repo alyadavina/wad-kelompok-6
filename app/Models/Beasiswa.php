@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Beasiswa extends Model
 {
     use HasFactory;
+    protected $table = 'beasiswas';
     protected $fillable = [
         'nama_beasiswa',
         'deskripsi',
@@ -18,8 +19,8 @@ class Beasiswa extends Model
         'link_pendaftaran'
     ];
 
-    public function favoritBeasiswa()
+    public function difavoritkanOleh()
     {
-        return $this->belongsToMany(Mahasiswa::class, 'beasiswa_favorit');
+        return $this->belongsToMany(Mahasiswa::class, 'beasiswa_favorit')->withTimestamps();
     }
 }

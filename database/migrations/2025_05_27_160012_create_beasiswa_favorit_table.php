@@ -12,10 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('beasiswa_favorit', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('mahasiswa_id')->constrained('mahasiswas')->onDelete('cascade');
-            $table->foreignId('beasiswa_id')->constrained('beasiswas')->onDelete('cascade');
-            $table->timestamps();
+             $table->id();
+             $table->unsignedBigInteger('mahasiswa_id');
+             $table->unsignedBigInteger('beasiswa_id');
+             $table->timestamps();
+
+             $table->foreign('mahasiswa_id')->references('id')->on('mahasiswa')->onDelete('cascade');
+             $table->foreign('beasiswa_id')->references('id')->on('beasiswa')->onDelete('cascade');
         });
     }
 

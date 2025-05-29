@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('feedback', function (Blueprint $table) {
-            $table->id('fbId');
+        Schema::create('admins', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('userId')->constrained('users')->onDelete('cascade');
-            $table->foreignId('id')->constrained('beasiswas')->onDelete('cascade');
-            $table->text('isi');
-            $table->timestamp('created_at')->useCurrent();
+            $table->string('admin_role');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('feedback');
+        Schema::dropIfExists('admins');
     }
 };
