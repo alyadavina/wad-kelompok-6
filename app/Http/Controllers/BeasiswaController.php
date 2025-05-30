@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use app\Models\Beasiswa;
 
 class BeasiswaController extends Controller
 {
@@ -11,8 +12,8 @@ class BeasiswaController extends Controller
      */
     public function index()
     {
-         $data = BeasiswaController::all();
-        return view('beasiswa.index', compact('data'));
+        $beasiswas = Beasiswa::all();
+        return view('beasiswa.index', compact('beasiswas'));
     }
 
     /**
@@ -28,15 +29,28 @@ class BeasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $beasiswas = Beasiswa::all();
-        return view('beasiswa.index', compact('beasiswas'));
-    }
+    $validated = $request->validate([
+        'nama_beasiswa' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+        'kategori' => 'required|in:Tel-U,Nasional',
+        'penyelenggara' => 'required|string|max:255',
+        'jenjang_pendidikan' => 'required|string|max:20',
+        'tanggal_buka' => 'required|date',
+        'tanggal_tutup' => 'required|date|after_or_equal:tanggal_buka',
+        'link_pendaftaran' => 'required|url',
+    ]);
+
+    \App\Models\Beasiswa::create($validated);
+
+    return redirect()->route('beasiswa.index')->with('success', 'Beasiswa berhasil ditambahkan!');
+}
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
+        $beasiswa = Beasiswa::findOrFail($id);
         return view('beasiswa.show', compact('beasiswa'));
     }
 
@@ -45,7 +59,8 @@ class BeasiswaController extends Controller
      */
     public function edit(string $id)
     {
-       return view('beasiswa.edit', compact('beasiswa'));
+        $beasiswa = Beasiswa::findOrFail($id);
+        return view('beasiswa.edit', compact('beasiswa'));
     }
 
     /**
@@ -53,6 +68,7 @@ class BeasiswaController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $beasiswa = Beasiswa::findOrFail($id);
         $beasiswa->update($request->validate([
             'nama' => 'required',
             'deskripsi' => 'required',
@@ -67,20 +83,10 @@ class BeasiswaController extends Controller
      */
     public function destroy(string $id)
     {
+        $beasiswa = Beasiswa::findOrFail($id);
         $beasiswa->delete();
         return redirect()->route('beasiswa.index')->with('success', 'Beasiswa berhasil dihapus!');
 
     }
-    
-    public function favorite($id)
-{
-    $mahasiswa = auth()->guard('mahasiswa')->user();
-    $beasiswa = Beasiswa::findOrFail($id);
-
-    $mahasiswa->favoritBeasiswas()->syncWithoutDetaching([$beasiswa->id]);
-
-    return redirect()->back()->with('success', 'Beasiswa ditambahkan ke favorit!');
-}
-
 
 }
