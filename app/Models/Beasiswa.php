@@ -1,11 +1,8 @@
 <?php
 
 namespace App\Models;
-
-use App\Http\Controllers\FavoriteController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Mahasiswa;
 
 class Beasiswa extends Model
 {
@@ -22,8 +19,8 @@ class Beasiswa extends Model
         'link_pendaftaran'
     ];
 
-    public function favoriteBeasiswas()
+    public function difavoritkanOleh()
     {
-    return $this->belongsToMany(Beasiswa::class, 'favorites', 'mahasiswa_id', 'beasiswa_id')->withTimestamps();
+        return $this->belongsToMany(Mahasiswa::class, 'beasiswa_favorit')->withTimestamps();
     }
 }

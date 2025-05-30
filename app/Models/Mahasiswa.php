@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\BeasiswaFavorite;
 
 class Mahasiswa extends Authenticatable
 {
@@ -19,7 +18,7 @@ class Mahasiswa extends Authenticatable
 
     public function favoriteBeasiswas()
 {
-        return $this->belongsToMany(Beasiswa::class, 'favorites')->withTimestamps();
+    return $this->hasMany(BeasiswaFavorite::class);
 }
 }
 

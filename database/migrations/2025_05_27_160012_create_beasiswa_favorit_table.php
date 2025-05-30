@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('favorite', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('mahasiswa_id');
-            $table->unsignedBigInteger('beasiswa_id');
-            $table->enum('status', ['favorite', 'not_favorite'])->default('favorite'); 
-            $table->timestamps();
+        Schema::create('beasiswa_favorit', function (Blueprint $table) {
+             $table->id();
+             $table->unsignedBigInteger('mahasiswa_id');
+             $table->unsignedBigInteger('beasiswa_id');
+             $table->timestamps();
 
-            $table->foreign('mahasiswa_id')->references('id')->on('mahasiswas')->onDelete('cascade');
-            $table->foreign('beasiswa_id')->references('id')->on('beasiswas')->onDelete('cascade');
+             $table->foreign('mahasiswa_id')->references('id')->on('mahasiswas')->onDelete('cascade');
+             $table->foreign('beasiswa_id')->references('id')->on('beasiswas')->onDelete('cascade');
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('favorites');
+        Schema::dropIfExists('beasiswa_favorit');
     }
 };

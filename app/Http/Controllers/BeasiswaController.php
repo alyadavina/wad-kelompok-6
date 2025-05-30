@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Beasiswa;
 
 class BeasiswaController extends Controller
 {
@@ -12,7 +11,7 @@ class BeasiswaController extends Controller
      */
     public function index()
     {
-         $data = Beasiswa::all();
+         $data = BeasiswaController::all();
         return view('beasiswa.index', compact('data'));
     }
 
@@ -51,19 +50,16 @@ class BeasiswaController extends Controller
 
     /**
      * Update the specified resource in storage.
-     */ 
+     */
     public function update(Request $request, string $id)
     {
-    $beasiswa = Beasiswa::findOrFail($id);
+        $beasiswa->update($request->validate([
+            'nama' => 'required',
+            'deskripsi' => 'required',
+            'jumlah_pendaftar' => 'required|integer',
+            'deadline' => 'required|date',
+        ]));
 
-    $beasiswa->update($request->validate([
-        'nama' => 'required',
-        'deskripsi' => 'required',
-        'jumlah_pendaftar' => 'required|integer',
-        'deadline' => 'required|date',
-    ]));
-
-    return redirect()->route('beasiswa.index')->with('success', 'Beasiswa berhasil diperbarui!');
     }
 
     /**
@@ -71,11 +67,20 @@ class BeasiswaController extends Controller
      */
     public function destroy(string $id)
     {
-        $beasiswa = Beasiswa::findOrFail($id);
-
         $beasiswa->delete();
         return redirect()->route('beasiswa.index')->with('success', 'Beasiswa berhasil dihapus!');
 
     }
+    
+    public function favorite($id)
+{
+    $mahasiswa = auth()->guard('mahasiswa')->user();
+    $beasiswa = Beasiswa::findOrFail($id);
+
+    $mahasiswa->favoritBeasiswas()->syncWithoutDetaching([$beasiswa->id]);
+
+    return redirect()->back()->with('success', 'Beasiswa ditambahkan ke favorit!');
+}
+
 
 }

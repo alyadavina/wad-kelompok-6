@@ -1,24 +1,9 @@
-<<<<<<< Updated upstream
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Dashboard Beasiswa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f9f5f0;
@@ -46,16 +31,6 @@
         }
         .text-maroon {
             color: #800000;
-        }
-        .favorite-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .favorite-icon:hover {
-            color: gold;
         }
     </style>
 </head>
@@ -86,7 +61,6 @@
         @forelse ($beasiswas as $beasiswa)
             <div class="col-md-4 mb-4 d-flex align-items-stretch">
                 <div class="card shadow w-100">
-                    <i class="fas fa-bookmark favorite-icon"></i>
                     @if(isset($beasiswa->gambar))
                         <img src="{{ asset('storage/beasiswa/' . $beasiswa->gambar) }}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="{{ $beasiswa->nama_beasiswa }}">
                     @else
@@ -107,9 +81,15 @@
                             <a href="{{ $beasiswa->link_pendaftaran }}" class="btn btn-maroon mt-3" target="_blank">Daftar Sekarang</a>
                         </form>
                     </div>
->>>>>>> Stashed changes
                 </div>
             </div>
-        </div>
+        @empty
+            <div class="col-12">
+                <div class="alert alert-warning text-center">Belum ada beasiswa tersedia saat ini.</div>
+            </div>
+        @endforelse
     </div>
-</x-app-layout>
+</div>
+
+</body>
+</html>
