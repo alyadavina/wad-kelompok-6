@@ -76,11 +76,23 @@
                             <li><strong>Penyelenggara:</strong> {{ $beasiswa->penyelenggara }}</li>
                             <li><strong>Tutup:</strong> {{ \Carbon\Carbon::parse($beasiswa->tanggal_tutup)->format('d M Y') }}</li>
                         </ul>
+                        <form action="{{ route('favorit.store') }}" method="POST" class="mb-2" style="position: relative;">
                             @csrf
                             <input type="hidden" name="beasiswa_id" value="{{ $beasiswa->id }}">
-                            <a href="{{ $beasiswa->link_pendaftaran }}" class="btn btn-maroon mt-3" target="_blank">Daftar Sekarang</a>
-                        </form>
-                    </div>
+                            <button type="submit" class="btn btn-sm btn-link p-0 m-0" style="position: absolute; top: 0; right: 0;">
+                                @php
+                                    $isFavorit = in_array($beasiswa->id, $mahasiswa->favoriteBeasiswas->pluck('beasiswa_id')->toArray());
+                                @endphp
+
+                                @if($isFavorit)
+                                    <i class="fas fa-bookmark text-maroon"></i>
+                                @else
+                                    <i class="far fa-bookmark text-muted"></i>
+                                @endif
+                            </button>
+                        </form>                       
+                        <a href="{{ $beasiswa->link_pendaftaran }}" class="btn btn-maroon mt-3" target="_blank">Daftar Sekarang</a>
+                        </div>
                 </div>
             </div>
         @empty

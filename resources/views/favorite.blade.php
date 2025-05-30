@@ -54,8 +54,10 @@
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                @foreach($mahasiswa->favoriteBeasiswas as $favorit)
+        @endif
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach($mahasiswa->favoriteBeasiswas as $favorit)
                     <div class="col">
                         <div class="card shadow-sm h-100 border-0 card-border-maroon">
                             <div class="card-body">
