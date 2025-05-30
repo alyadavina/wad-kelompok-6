@@ -56,9 +56,10 @@ class FavoriteController extends Controller
             ->firstOrFail();
 
         $favorit->update([
+            'prioritas' => $request->prioritas,
             'tanggal_difavoritkan' => now()
         ]);
 
-        return redirect()->route('favorit.index')->with('success', 'Data favorit diperbarui.');
+        return redirect()->back()->with('message', 'Prioritas berhasil diperbarui!')->with('status', 'success');
     }
 }

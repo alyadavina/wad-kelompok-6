@@ -66,6 +66,21 @@
                                     {{ \Illuminate\Support\Str::limit($favorit->beasiswa->deskripsi, 100) }}
                                 </p>
                                 <a href="#" class="btn btn-outline-maroon btn-sm">Lihat Detail</a>
+
+                                {{-- BUAT UPDATE FAVORITE --}}
+                                <form action="{{ route('favorit.update', $favorit->beasiswa->id) }}" method="POST" class="mt-2">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="d-flex align-items-center">
+                                        <label class="me-2 mb-0">Prioritas:</label>
+                                        <select name="prioritas" class="form-select form-select-sm w-auto me-2">
+                                            <option value="Tinggi" {{ $favorit->prioritas == 'Tinggi' ? 'selected' : '' }}>Tinggi</option>
+                                            <option value="Sedang" {{ $favorit->prioritas == 'Sedang' ? 'selected' : '' }}>Sedang</option>
+                                            <option value="Rendah" {{ $favorit->prioritas == 'Rendah' ? 'selected' : '' }}>Rendah</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-sm btn-maroon">Simpan</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

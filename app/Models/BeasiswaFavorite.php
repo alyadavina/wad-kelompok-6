@@ -8,7 +8,12 @@ class BeasiswaFavorite extends Model
 {
     protected $table = 'beasiswa_favorit';
 
-    protected $fillable = ['mahasiswa_id', 'beasiswa_id'];
+    protected $fillable = [
+        'mahasiswa_id',
+        'beasiswa_id',
+        'tanggal_difavoritkan',
+        'prioritas',
+    ];
 
     public function beasiswa()
     {

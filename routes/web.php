@@ -35,5 +35,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 Route::post('/favorite', [FavoriteController::class, 'store'])->name('favorit.store');
 Route::get('/favorite', [FavoriteController::class, 'index'])->name('favorit.index');
+Route::put('/favorit/{id}', [FavoriteController::class, 'update'])->name('favorit.update');
 
 
