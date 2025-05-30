@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\BeasiswaFavorite;
+
+class Mahasiswa extends Authenticatable
+{
+
+    protected $fillable = [
+        'nim', 'nama', 'email', 'password',
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    public function favoriteBeasiswas()
+{
+        return $this->belongsToMany(Beasiswa::class, 'favorites')->withTimestamps();
+}
+}
+
