@@ -34,6 +34,6 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::post('/favorite', [FavoriteController::class, 'store'])->name('favorit.store');
-Route::get('/favorite', [FavoriteController::class, 'index'])->name('favorits.index');
+Route::get('/favorite', [FavoriteController::class, 'index'])->name('favorit.index');
 
 

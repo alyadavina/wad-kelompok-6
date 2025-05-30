@@ -49,6 +49,11 @@
 </nav>
 
 <div class="container mt-4">
+    @if(session('message'))
+        <div class="alert alert-{{ session('status', 'success') }}">
+            {{ session('message') }}
+        </div>
+    @endif
     <div class="row mb-4">
         <div class="col-md-8">
             <h4 class="text-dark">Selamat datang, <span class="text-maroon">{{ Auth::guard('mahasiswa')->user()->nama }}</span></h4>

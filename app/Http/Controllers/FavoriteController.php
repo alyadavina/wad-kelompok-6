@@ -15,15 +15,21 @@ class FavoriteController extends Controller
             ->where('beasiswa_id', $request->beasiswa_id)
             ->first();
 
-        if (!$existing) {
+        if ($existing) {
+            $existing->delete();
+            return redirect()->back()
+            ->with('message', 'Beasiswa berhasil dihapus dari favorit!')
+            ->with('status', 'danger');
+        } else {
             BeasiswaFavorite::create([
-                'mahasiswa_id' => $mahasiswaId,
-                'beasiswa_id' => $request->beasiswa_id,
-                'tanggal_difavoritkan' => now()
-            ]);
+            'mahasiswa_id' => $mahasiswaId,
+            'beasiswa_id' => $request->beasiswa_id,
+            'tanggal_difavoritkan' => now()
+        ]);
+        return redirect()->back()
+            ->with('message', 'Beasiswa ditambahkan ke favorit!')
+            ->with('status', 'success');
         }
-
-        return redirect()->route('favorit.index')->with('success', 'Beasiswa ditambahkan ke favorit!');
     }
 
     public function index()
