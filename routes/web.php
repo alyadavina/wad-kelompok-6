@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotifikasiController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,7 +21,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('beasiswa', BeasiswaController::class)->middleware('auth');
-require __DIR__.'/auth.php';
+
 
 Route::resource('beasiswa', BeasiswaController::class);
 

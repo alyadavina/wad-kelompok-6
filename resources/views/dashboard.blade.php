@@ -41,11 +41,7 @@
         <a class="navbar-brand fw-bold" href="/dashboard">Telbea Beasiswa</a>
         <div class="ms-auto">
             <a href="/notifikasi" class="btn btn-outline-light btn-sm">Notifikasi</a>
-            <a href="/favorite" class="btn btn-outline-light btn-sm">Favorite</a>
-            <a href="{{ route('logout') }}" 
-               class="btn btn-outline-light btn-sm"
-               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-               Logout
+            <a href="/favorite" class="btn btn-outline-light btn-sm">Favorite</a> 
             </a>
         </div>
     </div>
