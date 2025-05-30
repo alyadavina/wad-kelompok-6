@@ -11,10 +11,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-    $mahasiswa = Mahasiswa::with('favoriteBeasiswas.beasiswa')->find(auth()->id());
-    $beasiswas = Beasiswa::all();
+        $mahasiswa = Mahasiswa::with('favoriteBeasiswas.beasiswa')->find(auth()->guard('mahasiswa')->id());
+        $beasiswas = Beasiswa::all();
 
-    return view('dashboard', compact('mahasiswa', 'beasiswas'));
+        return view('dashboard', compact('mahasiswa', 'beasiswas'));
     }
     
     

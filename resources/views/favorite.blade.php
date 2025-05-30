@@ -70,8 +70,7 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
-        @endif
+        </div>
     </div>
 
     <!-- Footer -->
