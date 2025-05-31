@@ -6,7 +6,7 @@
     <title>Register</title>
     <style>
         body {
-            background: linear-gradient(to right, #AD1457, #FCE4EC); 
+            background: linear-gradient(135deg, #800000 30%, #f9f5f0 100%);
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
@@ -34,7 +34,7 @@
 
         button {
             margin-top: 1rem;
-            background: #AD1457;
+            background: #800000;
             color: white;
             border: none;
             padding: 10px;
@@ -45,11 +45,11 @@
         }
 
         button:hover {
-            background: #880E4F;
+            background: #a00000;
         }
 
         a {
-            color: #AD1457;
+            color: #800000;
             text-decoration: none;
         }
 
@@ -74,15 +74,15 @@
 
     <form method="POST" action="{{ route('register') }}">
         @csrf
-        <input type="text" name="name" placeholder="Nama Lengkap" required>
-        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}" required>
+        <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
         <input type="password" name="password" placeholder="Password" required>
         <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" required>
 
         <select name="role" required>
             <option value="">-- Pilih Role --</option>
-            <option value="admin">Admin</option>
-            <option value="mahasiswa">Mahasiswa</option>
+            <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+            <option value="mahasiswa" {{ old('role') == 'mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
         </select>
 
         <button type="submit">Daftar</button>

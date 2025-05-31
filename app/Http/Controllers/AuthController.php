@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     
-    public function showRegisterForm()
-    {
-        return view('auth.register');
-    }
+    // //public function showRegisterForm()
+    // {
+    //     return view('auth.register');
+    // }
 
 
     public function register(Request $request)
@@ -46,6 +46,14 @@ class AuthController extends Controller
         return redirect()->route('login.form')->with('success', 'Pendaftaran berhasil. Silakan login.');
     }
 
+    public function showRegisterForm()
+    {
+        if (!view()->exists('auth.register')) {
+            abort(500, 'View auth.register tidak ditemukan!');
+        }
+
+        return view('auth.register');
+    }
 
     public function showLoginForm()
     {
