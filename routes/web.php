@@ -44,6 +44,9 @@ Route::get('/reminder/{beasiswa_id}', [App\Http\Controllers\ReminderController::
     ->middleware('auth:mahasiswa');
 
 Route::post('/reminder/simpan', [ReminderController::class, 'store'])->name('reminder.store');
+Route::get('/reminder', [ReminderController::class, 'index'])->name('reminder.index')->middleware('auth:mahasiswa');
+Route::get('/reminder', [ReminderController::class, 'index'])->name('reminder.index');
+Route::delete('/reminder/{id}', [ReminderController::class, 'destroy'])->name('reminder.destroy');
 
 
 

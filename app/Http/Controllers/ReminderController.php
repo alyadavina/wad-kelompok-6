@@ -17,17 +17,11 @@ class ReminderController extends Controller
 
     public function store(Request $request)
     {
-        Reminder::create([
-            'mahasiswa_id' => auth('mahasiswa')->id(),
-            'beasiswa_id' => $request->beasiswa_id,
-            'waktu_pengingat' => $request->waktu_pengingat,
+        $request->validate([
+            'beasiswa_id' => 'required|exists:beasiswas,id',
+            'waktu_reminder' => 'required',
         ]);
 
-        return redirect()->back()->with('success', 'Reminder berhasil ditambahkan!');
-
-        $userId = auth()->guard('mahasiswa')->id(); // atau 'web' sesuai guard kamu
-
-        // Hitung waktu pengingat
         $beasiswa = \App\Models\Beasiswa::findOrFail($request->beasiswa_id);
         $tanggalTutup = Carbon::parse($beasiswa->tanggal_tutup);
 
@@ -41,13 +35,31 @@ class ReminderController extends Controller
             return back()->with('error', 'Waktu pengingat lebih awal dari waktu sistem saat ini');
         }
 
-    // Simpan ke database
         Reminder::create([
-            'mahasiswa_id' => $userId,
+            'mahasiswa_id' => auth('mahasiswa')->id(),
             'beasiswa_id' => $request->beasiswa_id,
             'waktu_pengingat' => $reminderTime,
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Reminder berhasil disimpan!');
+        return redirect()->back()->with('success', 'Reminder berhasil ditambahkan!');
     }
+
+    public function index()
+    {
+        $reminders = Reminder::with('beasiswa')
+            ->where('mahasiswa_id', auth('mahasiswa')->id())
+            ->orderBy('waktu_pengingat', 'asc')
+            ->get();
+
+        return view('reminder.index', compact('reminders'));
+    }   
+
+    public function destroy($id)
+    {
+        $reminder = Reminder::findOrFail($id);
+
+        $reminder->delete();
+        return redirect()->back()->with('success', 'Reminder berhasil dihapus!');
+    }
+
 }

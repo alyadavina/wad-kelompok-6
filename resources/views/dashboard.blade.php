@@ -76,6 +76,7 @@
         <a class="navbar-brand fw-bold" href="/dashboard">Telbea Beasiswa</a>
         <div class="ms-auto">
             <a href="/notifikasi" class="btn btn-outline-light btn-sm">Notifikasi</a>
+            <a href="{{ route('reminder.index') }}" class="btn btn-outline-light btn-sm">Reminder</a>
             <a href="/favorite" class="btn btn-outline-light btn-sm">Favorite</a>
             <a href="/logout" class="btn btn-outline-light btn-sm">Logout</a>
         </div>
@@ -83,6 +84,13 @@
 </nav>
 
 <div class="container mt-4">
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     @if(session('message'))
         <div class="alert alert-{{ session('status', 'success') }}">
             {{ session('message') }}
