@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\Auth\MahasiswaLoginController;
 use App\Http\Controllers\Admin\NotifikasiAdminController;
+use App\Http\Controllers\Admin\BeasiswaAdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -55,4 +56,11 @@ Route::prefix('admin')->group(function () {
     Route::post('/notifikasi', [NotifikasiAdminController::class, 'store'])->name('admin.notifikasi.store');
     Route::put('/notifikasi/{id}', [NotifikasiAdminController::class, 'update'])->name('admin.notifikasi.update');
     Route::delete('/notifikasi/{id}', [NotifikasiAdminController::class, 'destroy'])->name('admin.notifikasi.destroy');
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('/beasiswa', [BeasiswaAdminController::class, 'index'])->name('admin.beasiswa.index');
+    Route::post('/beasiswa', [BeasiswaAdminController::class, 'store'])->name('admin.beasiswa.store');
+    Route::put('/beasiswa/{id}', [BeasiswaAdminController::class, 'update'])->name('admin.beasiswa.update');
+    Route::delete('/beasiswa/{id}', [BeasiswaAdminController::class, 'destroy'])->name('admin.beasiswa.destroy');
 });

@@ -2,99 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - Kelola Notifikasi</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Telbea Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #e6e6e6;
+            background-color: #f0f0f0;
         }
         .navbar {
-            background-color: maroon;
+            background-color: #800000; 
         }
-        .btn-maroon {
-            background-color: maroon;
+        .navbar-brand, .nav-link, .text-white {
+            color: white !important;
+        }
+        .sidebar {
+            background-color: #d3d3d3; 
+            height: 100vh;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            color: #800000;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+        }
+        .sidebar a:hover {
+            background-color: #a52a2a; 
             color: white;
         }
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .content {
+            padding: 20px;
         }
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"> Telbea Admin Dashboard</a>
+        </div>
+    </nav>
 
-<nav class="navbar navbar-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">Admin Panel</a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 sidebar">
+                <a href="/admin/beasiswa">Atur Beasiswa</a>
+                <a href="/admin/notifikasi">Kelola Notifikasi</a>
+                <a href="#">Keluar</a>
+            </div>
+            <div class="col-md-10 content">
+                <h1 class="mb-4">Selamat Datang, Admin</h1>
+                <p>Gunakan panel di kiri untuk mengelola Beasiswa.</p>
+            </div>
+        </div>
     </div>
-</nav>
-
-<div class="container mt-4">
-    <h2 class="mb-4">Kelola Notifikasi</h2>
-
-    {{-- === FORM TAMBAH / EDIT === --}}
-    <div class="card p-4 mb-4 bg-white">
-        <h5>{{ isset($editData) ? 'Edit Notifikasi' : 'Tambah Notifikasi' }}</h5>
-        <form action="{{ isset($editData) ? route('admin.notifikasi.update', $editData->id) : route('admin.notifikasi.store') }}" method="POST">
-            @csrf
-            @if(isset($editData))
-                @method('PUT')
-            @endif
-
-            <div class="mb-3">
-                <label class="form-label">Judul</label>
-                <input type="text" name="judul" class="form-control" value="{{ old('judul', $editData->judul ?? '') }}" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Isi</label>
-                <textarea name="isi" class="form-control" rows="3" required>{{ old('isi', $editData->isi ?? '') }}</textarea>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Mahasiswa ID</label>
-                <input type="number" name="mahasiswa_id" class="form-control" value="{{ old('mahasiswa_id', $editData->mahasiswa_id ?? '') }}" required>
-            </div>
-            <button type="submit" class="btn btn-maroon">
-                {{ isset($editData) ? 'Simpan Perubahan' : 'Tambah' }}
-            </button>
-            @if(isset($editData))
-                <a href="{{ route('admin.notifikasi.index') }}" class="btn btn-secondary">Batal</a>
-            @endif
-        </form>
-    </div>
-
-    {{-- === TABEL DATA NOTIFIKASI === --}}
-    <table class="table table-bordered bg-white">
-        <thead class="table-secondary">
-            <tr>
-                <th>ID</th>
-                <th>Judul</th>
-                <th>Isi</th>
-                <th>Mahasiswa ID</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($notifikasi as $n)
-            <tr>
-                <td>{{ $n->id }}</td>
-                <td>{{ $n->judul }}</td>
-                <td>{{ $n->isi }}</td>
-                <td>{{ $n->mahasiswa_id }}</td>
-                <td>
-                    <a href="{{ route('admin.notifikasi.index', ['edit' => $n->id]) }}" class="btn btn-sm btn-warning">Edit</a>
-                    <form action="{{ route('admin.notifikasi.destroy', $n->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button onclick="return confirm('Yakin hapus notifikasi ini?')" class="btn btn-sm btn-danger">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

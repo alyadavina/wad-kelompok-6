@@ -36,7 +36,7 @@
 
 <nav class="navbar navbar-dark">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="/admindashboard">Telbea Admin - Notifikasi</a>
+        <a class="navbar-brand fw-bold" href="#">Telbea Admin - Notifikasi</a>
     </div>
 </nav>
 
