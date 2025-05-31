@@ -25,25 +25,34 @@ class AuthController extends Controller
             'role' => 'required|in:admin,mahasiswa',
         ]);
 
-        $user = User::create([
+        // Validasi domain email berdasarkan role
+        if ($request->role === 'mahasiswa' && !str_ends_with($request->email, '@student.telkomuniversity.ac.id')) {
+            return back()->withErrors(['email' => 'Email mahasiswa harus menggunakan domain @student.telkomuniversity.ac.id']);
+        }
+
+        if ($request->role === 'admin' && !str_ends_with($request->email, '@telkomuniversity.ac.id')) {
+            return back()->withErrors(['email' => 'Email admin harus menggunakan domain @telkomuniversity.ac.id']);
+        }
+
+        // Simpan user baru
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login($user);
-
-        return redirect()->route('profile.show');
+        // Redirect ke form login
+        return redirect()->route('login.form')->with('success', 'Pendaftaran berhasil. Silakan login.');
     }
 
-    
+
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -51,9 +60,17 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if(Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended(route('profile.show'));
+
+            $user = Auth::user();
+
+            // Redirect berdasarkan role
+            if ($user->role === 'admin') {
+                return redirect()->route('dashboard.admin');
+            } elseif ($user->role === 'mahasiswa') {
+                return redirect()->route('dashboard.mahasiswa');
+            }
         }
 
         return back()->withErrors([
@@ -61,7 +78,7 @@ class AuthController extends Controller
         ]);
     }
 
-    
+
     public function logout(Request $request)
     {
         Auth::logout();
