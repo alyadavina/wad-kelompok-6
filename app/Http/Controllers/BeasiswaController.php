@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Beasiswa;
 use Illuminate\Http\Request;
-use app\Models\Beasiswa;
 
 class BeasiswaController extends Controller
 {

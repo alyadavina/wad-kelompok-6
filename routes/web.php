@@ -28,6 +28,8 @@ Route::resource('beasiswa', BeasiswaController::class)->middleware('auth');
 require __DIR__.'/auth.php';
 
 Route::resource('beasiswa', BeasiswaController::class);
+Route::get('/beasiswa/{id}', [\App\Http\Controllers\BeasiswaController::class, 'show'])->name('beasiswa.show');
+
 
 Route::get('/', function () {
     return view('welcome');

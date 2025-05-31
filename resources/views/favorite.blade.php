@@ -97,9 +97,10 @@
             <p class="text-muted">Ini adalah beasiswa yang sudah kamu tandai sebagai favorit.</p>
         </div>
 
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+        @if(session('message'))
+            <div class="alert alert-{{ session('status', 'success') }} alert-dismissible fade show mt-2" role="alert">
+                {{ session('message') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 

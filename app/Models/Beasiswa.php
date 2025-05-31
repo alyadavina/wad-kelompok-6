@@ -3,6 +3,7 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Mahasiswa;
 
 class Beasiswa extends Model
 {
@@ -13,13 +14,15 @@ class Beasiswa extends Model
         'deskripsi',
         'kategori',
         'penyelenggara',
+        'persyaratan',
         'jenjang_pendidikan',
         'tanggal_buka',
         'tanggal_tutup',
-        'link_pendaftaran'
+        'link_pendaftaran',
+        'gambar'
     ];
 
-    public function difavoritkanOleh()
+    public function mahasiswaFavorit()
     {
         return $this->belongsToMany(Mahasiswa::class, 'beasiswa_favorit')->withTimestamps();
     }

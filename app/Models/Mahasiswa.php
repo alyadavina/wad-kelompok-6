@@ -17,8 +17,8 @@ class Mahasiswa extends Authenticatable
     ];
 
     public function favoriteBeasiswas()
-{
-    return $this->hasMany(BeasiswaFavorite::class);
-}
+    {
+        return $this->belongsToMany(Beasiswa::class, 'beasiswa_favorit')->withTimestamps();
+    }
 }
 
