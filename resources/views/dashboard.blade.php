@@ -5,6 +5,7 @@
     <title>Dashboard Beasiswa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-8vNT58c2i+8Y8EfZFbWxO9Yz+SefmO/evJ6H9ABHgiRnMZr1WvjaQo0Y6VJY04nDdJ9b9kF2eD6UgZoYPJhDLg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         body {
             background-color: #f9f5f0;
@@ -33,6 +34,39 @@
         .text-maroon {
             color: #800000;
         }
+
+        .modal-custom {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-custom:target {
+    display: flex;
+}
+
+.modal-content-custom {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px; right: 15px;
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #800000;
+}
+
     </style>
 </head>
 <body>
@@ -75,6 +109,8 @@
                     <div class="card-body d-flex flex-column">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h5 class="card-title mb-0">{{ $beasiswa->nama_beasiswa }}</h5>
+
+                            {{-- Favorite --}}
                             <form action="{{ route('favorit.store') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="beasiswa_id" value="{{ $beasiswa->id }}">
@@ -89,6 +125,40 @@
                                     @endif
                                 </button>
                             </form>
+
+                            {{-- Reminder --}}
+                            <a href="#reminder-{{ $beasiswa->id }}" class="btn btn-sm p-0 border-0 bg-transparent">
+                                <i class="far fa-bell text-warning"></i>
+                            </a>
+
+                            <!-- Modal -->
+                            <div id="reminder-{{ $beasiswa->id }}" class="modal-custom">
+                                <div class="modal-content-custom">
+                                    <a href="#" class="close-btn">&times;</a>
+                                    <h5 class="mb-3">Atur Pengingat - {{ $beasiswa->nama_beasiswa }}</h5>
+                                    <form action="{{ route('reminder.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="beasiswa_id" value="{{ $beasiswa->id }}">
+
+                                        <div class="mb-2">
+                                            <label for="waktu_reminder_{{ $beasiswa->id }}" class="form-label">Waktu Reminder</label>
+                                            <select name="waktu_reminder" id="waktu_reminder_{{ $beasiswa->id }}" class="form-select" required>
+                                                <option value="">-- Pilih --</option>
+                                                <option value="1">1 hari sebelum</option>
+                                                <option value="2">2 hari sebelum</option>
+                                                <option value="custom">Custom</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label for="custom_datetime_{{ $beasiswa->id }}" class="form-label">Waktu Custom</label>
+                                            <input type="datetime-local" name="custom_datetime" id="custom_datetime_{{ $beasiswa->id }}" class="form-control">
+                                        </div>
+
+                                        <button type="submit" class="btn btn-maroon mt-2">Simpan</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
 
                         <p class="card-text text-muted" style="font-size: 14px;">

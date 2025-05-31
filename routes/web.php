@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeasiswaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ReminderController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,5 +38,12 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::post('/favorite', [FavoriteController::class, 'store'])->name('favorit.store');
 Route::get('/favorite', [FavoriteController::class, 'index'])->name('favorit.index');
 Route::put('/favorit/{id}', [FavoriteController::class, 'update'])->name('favorit.update');
+
+Route::get('/reminder/{beasiswa_id}', [App\Http\Controllers\ReminderController::class, 'showOptions'])
+    ->name('reminder.showOptions')
+    ->middleware('auth:mahasiswa');
+
+Route::post('/reminder/simpan', [ReminderController::class, 'store'])->name('reminder.store');
+
 
 
