@@ -32,6 +32,53 @@
         .card-border-maroon {
             border-left: 5px solid #800000;
         }
+        .pill-group {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.pill-prio {
+    border: 2px solid currentColor;
+    background-color: transparent;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+    text-align: center;
+}
+
+/* Warna per prioritas */
+.pill-tinggi {
+    color: #b30000;
+}
+.pill-sedang {
+    color: #cc7a00;
+}
+.pill-rendah {
+    color: #007c91;
+}
+.pill-tinggi.active {
+    background-color: #b30000;
+    color: #fff;
+}
+.pill-sedang.active {
+    background-color: #cc7a00;
+    color: #fff;
+}
+.pill-rendah.active {
+    background-color: #007c91;
+    color: #fff;
+}
+
+
+
+
+
     </style>
 </head>
 <body>
@@ -66,21 +113,33 @@
                                     {{ \Illuminate\Support\Str::limit($favorit->beasiswa->deskripsi, 100) }}
                                 </p>
                                 <a href="#" class="btn btn-outline-maroon btn-sm">Lihat Detail</a>
+                                <p class="mb-2">
+                                    @php
+                                        $badgeClass = match($favorit->prioritas) {
+                                            'Tinggi' => 'pill pill-tinggi',
+                                            'Sedang' => 'pill pill-sedang',
+                                            'Rendah' => 'pill pill-rendah',
+                                            default => 'pill',
+                                            };
+                                    @endphp
+                                    <span class="{{ $badgeClass }}">{{ $favorit->prioritas }}</span>
+                                </p>
+                                <form action="{{ route('favorit.update', $favorit->beasiswa->id) }}" method="POST" class="d-flex gap-2 flex-wrap">
+    @csrf
+    @method('PUT')
+    @foreach (['Tinggi', 'Sedang', 'Rendah'] as $prio)
+        <button type="submit" name="prioritas" value="{{ $prio }}"
+            class="pill-prio {{
+                $prio === 'Tinggi' ? 'pill-tinggi' :
+                ($prio === 'Sedang' ? 'pill-sedang' : 'pill-rendah')
+            }} {{ $favorit->prioritas === $prio ? 'active' : '' }}">
+            {{ $prio }}
+        </button>
+    @endforeach
+</form>
 
-                                {{-- BUAT UPDATE FAVORITE --}}
-                                <form action="{{ route('favorit.update', $favorit->beasiswa->id) }}" method="POST" class="mt-2">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="d-flex align-items-center">
-                                        <label class="me-2 mb-0">Prioritas:</label>
-                                        <select name="prioritas" class="form-select form-select-sm w-auto me-2">
-                                            <option value="Tinggi" {{ $favorit->prioritas == 'Tinggi' ? 'selected' : '' }}>Tinggi</option>
-                                            <option value="Sedang" {{ $favorit->prioritas == 'Sedang' ? 'selected' : '' }}>Sedang</option>
-                                            <option value="Rendah" {{ $favorit->prioritas == 'Rendah' ? 'selected' : '' }}>Rendah</option>
-                                        </select>
-                                        <button type="submit" class="btn btn-sm btn-maroon">Simpan</button>
-                                    </div>
-                                </form>
+
+
                             </div>
                         </div>
                     </div>

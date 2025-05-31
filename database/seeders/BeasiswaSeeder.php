@@ -39,6 +39,7 @@ class BeasiswaSeeder extends Seeder
             'tanggal_buka' => '2025-02-05',
             'tanggal_tutup' => '2025-11-08',
             'link_pendaftaran' => 'https://beasiswa.kemenag.go.id/',
+            'gambar' => 'beasiswa_kemenag.jpg',
         ]);
         Beasiswa::create([
             'nama_beasiswa' => 'Beasiswa Bidikmisi',

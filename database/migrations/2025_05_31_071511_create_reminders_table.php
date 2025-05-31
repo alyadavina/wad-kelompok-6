@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('reminders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('mahasiswa_id')->constrained('mahasiswas')->onDelete('cascade');
+            $table->foreignId('beasiswa_id')->constrained('beasiswas')->onDelete('cascade');
+            $table->dateTime('waktu_reminder');
             $table->timestamps();
         });
     }

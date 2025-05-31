@@ -73,7 +73,24 @@
                         <img src="{{ asset('img/default.jpg') }}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Beasiswa">
                     @endif
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ $beasiswa->nama_beasiswa }}</h5>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="card-title mb-0">{{ $beasiswa->nama_beasiswa }}</h5>
+                            <form action="{{ route('favorit.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="beasiswa_id" value="{{ $beasiswa->id }}">
+                                <button type="submit" class="btn btn-sm p-0 border-0 bg-transparent">
+                                    @php
+                                        $isFavorit = in_array($beasiswa->id, $mahasiswa->favoriteBeasiswas->pluck('beasiswa_id')->toArray());
+                                    @endphp
+                                    @if($isFavorit)
+                                        <i class="fas fa-bookmark text-maroon"></i>
+                                    @else
+                                        <i class="far fa-bookmark text-muted"></i>
+                                    @endif
+                                </button>
+                            </form>
+                        </div>
+
                         <p class="card-text text-muted" style="font-size: 14px;">
                             {{ Str::limit($beasiswa->deskripsi, 100) }}
                         </p>
@@ -81,22 +98,7 @@
                             <li><strong>Kategori:</strong> {{ $beasiswa->kategori }}</li>
                             <li><strong>Penyelenggara:</strong> {{ $beasiswa->penyelenggara }}</li>
                             <li><strong>Tutup:</strong> {{ \Carbon\Carbon::parse($beasiswa->tanggal_tutup)->format('d M Y') }}</li>
-                        </ul>
-                        <form action="{{ route('favorit.store') }}" method="POST" class="mb-2" style="position: relative;">
-                            @csrf
-                            <input type="hidden" name="beasiswa_id" value="{{ $beasiswa->id }}">
-                            <button type="submit" class="btn btn-sm btn-link p-0 m-0" style="position: absolute; top: 0; right: 0;">
-                                @php
-                                    $isFavorit = in_array($beasiswa->id, $mahasiswa->favoriteBeasiswas->pluck('beasiswa_id')->toArray());
-                                @endphp
-
-                                @if($isFavorit)
-                                    <i class="fas fa-bookmark text-maroon"></i>
-                                @else
-                                    <i class="far fa-bookmark text-muted"></i>
-                                @endif
-                            </button>
-                        </form>                       
+                        </ul>                    
                         <a href="{{ $beasiswa->link_pendaftaran }}" class="btn btn-maroon mt-3" target="_blank">Daftar Sekarang</a>
                         </div>
                 </div>
