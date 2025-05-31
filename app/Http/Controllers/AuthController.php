@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    // Tampilkan form register
+    
     public function showRegisterForm()
     {
         return view('auth.register');
     }
 
-    // Proses register
+
     public function register(Request $request)
     {
         $request->validate([
@@ -37,13 +37,13 @@ class AuthController extends Controller
         return redirect()->route('profile.show');
     }
 
-    // Tampilkan form login
+    
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    // Proses login
+    
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -61,7 +61,7 @@ class AuthController extends Controller
         ]);
     }
 
-    // Logout
+    
     public function logout(Request $request)
     {
         Auth::logout();
