@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Beasiswa;
 use App\Models\Mahasiswa;
 use App\Models\FavoriteBeasiswa;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {

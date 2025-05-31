@@ -50,8 +50,12 @@
 <div class="container mt-4">
     <div class="row mb-4">
         <div class="col-md-8">
-            <h4 class="text-dark">Selamat datang, <span class="text-maroon">{{ Auth::guard('mahasiswa')->user()->nama }}</span></h4>
-            <p class="text-muted mb-0">Program Studi: {{ Auth::guard('mahasiswa')->user()->jurusan }}</p>
+            @if(Auth::guard('mahasiswa')->check())
+                <h4 class="text-dark">Selamat datang, <span class="text-maroon">{{ Auth::guard('mahasiswa')->user()->nama }}</span></h4>
+                <p class="text-muted mb-0">Program Studi: {{ Auth::guard('mahasiswa')->user()->jurusan }}</p>
+            @else
+                <p>Belum login</p>
+            @endif
         </div>
     </div>
 

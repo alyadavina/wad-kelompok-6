@@ -41,29 +41,24 @@ return [
         'provider' => 'users',
     ],
 
+    'mahasiswa' => [
+        'driver' => 'session',
+        'provider' => 'mahasiswas',
+    ],
+],
 
-        /*
+    /*
     |--------------------------------------------------------------------------
     | User Providers
     |--------------------------------------------------------------------------
     |
-    | All authentication guards have a user provider, which defines how the
+    | All authentication drivers have a user provider. This defines how the
     | users are actually retrieved out of your database or other storage
-    | system used by the application. Typically, Eloquent is utilized.
-    |
-    | If you have multiple user tables or models you may configure multiple
-    | providers to represent the model / table. These providers may then
-    | be assigned to any extra authentication guards you have defined.
+    | system used by the application. You may configure multiple sources.
     |
     | Supported: "database", "eloquent"
     |
     */
-
-    'mahasiswa' => [              
-        'driver' => 'session',
-        'provider' => 'mahasiswas',  
-    ],
-],
 
 'providers' => [
     'users' => [

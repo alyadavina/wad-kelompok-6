@@ -16,7 +16,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        return view('login');
     }
 
     /**
@@ -25,15 +25,12 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         if (!Auth::guard('mahasiswa')->attempt($request->only('email', 'password'))) {
-            return back()->withErrors([
-            'email' => 'Email atau password salah',
-        ]);
-
+        return back()->withErrors(['email' => 'Email atau password salah']);
         }
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('dashboard'));
     }
 
     /**
