@@ -90,7 +90,7 @@
         }
 
         .card-link .card {
-            : transform 0.3s ease; 
+            transform 0.3s ease; 
         }
 
         .card-link:hover .card {
@@ -146,29 +146,38 @@
                         @endif
                         <div class="card-body d-flex flex-column">
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h5 class="card-title mb-0">{{ $beasiswa->nama_beasiswa }}</h5>
+                                <h5 class="card-title mb-2">{{ $beasiswa->nama_beasiswa }}</h5>
 
-                                {{-- Favorite --}}
-                                <form action="{{ route('favorit.store') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="beasiswa_id" value="{{ $beasiswa->id }}">
-                                    <button type="submit" class="btn btn-sm p-0 border-0 bg-transparent">
-                                        @php
-                                            $isFavorit = in_array($beasiswa->id, $mahasiswa->favoriteBeasiswas->pluck('beasiswa_id')->toArray());
-                                        @endphp
-                                        @if($isFavorit)
-                                            <i class="fas fa-bookmark text-maroon"></i>
-                                        @else
-                                            <i class="far fa-bookmark text-muted"></i>
-                                        @endif
-                                    </button>
-                                </form>
-                                        
-                                {{-- Reminder --}}
-                                <a href="#reminder-{{ $beasiswa->id }}" class="btn btn-sm p-0 border-0 bg-transparent">
-                                    <i class="far fa-bell text-warning"></i>
-                                </a>
-                            
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    {{-- Komentar --}}
+                                    <form action="{{ route('comments.show', $beasiswa->id) }}" method="GET" class="m-0">
+                                        <button type="submit" class="btn btn-sm p-0 border-0 bg-transparent text-muted" title="Komentar">
+                                            <i class="far fa-comment"></i>
+                                        </button>
+                                    </form>
+
+                                    {{-- Reminder --}}
+                                    <a href="#reminder-{{ $beasiswa->id }}" class="btn btn-sm p-0 border-0 bg-transparent text-muted" title="Reminder">
+                                        <i class="far fa-bell"></i>
+                                    </a>
+
+                                    {{-- Bookmark --}}
+                                    <form action="{{ route('favorit.store') }}" method="POST" class="m-0">
+                                        @csrf
+                                        <input type="hidden" name="beasiswa_id" value="{{ $beasiswa->id }}">
+                                        <button type="submit" class="btn btn-sm p-0 border-0 bg-transparent" title="Bookmark">
+                                            @php
+                                                $isFavorit = in_array($beasiswa->id, $mahasiswa->favoriteBeasiswas->pluck('beasiswa_id')->toArray());
+                                            @endphp
+                                            @if($isFavorit)
+                                                <i class="fas fa-bookmark text-maroon"></i>
+                                            @else
+                                                <i class="far fa-bookmark text-muted"></i>
+                                            @endif
+                                        </button>
+                                    </form>
+                                </div>
+
                                 {{-- Modall --}}
                                 <div id="reminder-{{ $beasiswa->id }}" class="modal-custom">
                                     <div class="modal-content-custom">
@@ -198,8 +207,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <p class="card-text text-muted" style="font-size: 14px;">
+                           <p class="card-text text-muted" style="font-size: 14px;">
                                 {{ Str::limit($beasiswa->deskripsi, 100) }}
                             </p>
                             <ul class="list-unstyled small mb-3">

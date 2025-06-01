@@ -26,4 +26,10 @@ class Beasiswa extends Model
     {
         return $this->belongsToMany(Mahasiswa::class, 'beasiswa_favorit')->withTimestamps();
     }
+
+    public function comments()
+    {
+    return $this->hasMany(Comment::class);
+    }
+
 }

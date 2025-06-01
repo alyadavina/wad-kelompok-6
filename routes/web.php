@@ -6,6 +6,7 @@ use App\Http\Controllers\BeasiswaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReminderController;
+use App\Http\Controllers\CommentController;
 
 
 Route::get('/', function () {
@@ -49,6 +50,10 @@ Route::post('/reminder/simpan', [ReminderController::class, 'store'])->name('rem
 Route::get('/reminder', [ReminderController::class, 'index'])->name('reminder.index')->middleware('auth:mahasiswa');
 Route::get('/reminder', [ReminderController::class, 'index'])->name('reminder.index');
 Route::delete('/reminder/{id}', [ReminderController::class, 'destroy'])->name('reminder.destroy');
+
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::get('/comments/{beasiswa}', [CommentController::class, 'show'])->name('comments.show');
+
 
 
 
