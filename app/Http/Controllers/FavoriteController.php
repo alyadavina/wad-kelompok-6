@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BeasiswaFavorite;
 use App\Models\Mahasiswa;
+use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
     public function store(Request $request)
     {
-        $mahasiswaId = auth()->id();
+        $mahasiswaId = Auth::guard('mahasiswa')->id();
         $existing = BeasiswaFavorite::where('mahasiswa_id', $mahasiswaId)
             ->where('beasiswa_id', $request->beasiswa_id)
             ->first();
@@ -27,7 +28,9 @@ class FavoriteController extends Controller
 
     public function index()
     {
-        $mahasiswa = Mahasiswa::with('favoriteBeasiswas.beasiswa')->find(auth()->id());
+        $mahasiswaId = Auth::guard('mahasiswa')->id();
+        $mahasiswa = Mahasiswa::with('favoriteBeasiswas.beasiswa')->find($mahasiswaId);
+
         return view('favorite', compact('mahasiswa'));
     }
 }

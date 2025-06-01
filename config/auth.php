@@ -41,8 +41,29 @@ return [
         'provider' => 'users',
     ],
 
+<<<<<<< HEAD
     
 ],
+=======
+    'mahasiswa' => [
+        'driver' => 'session',
+        'provider' => 'mahasiswas',
+    ],
+],
+
+    /*
+    |--------------------------------------------------------------------------
+    | User Providers
+    |--------------------------------------------------------------------------
+    |
+    | All authentication drivers have a user provider. This defines how the
+    | users are actually retrieved out of your database or other storage
+    | system used by the application. You may configure multiple sources.
+    |
+    | Supported: "database", "eloquent"
+    |
+    */
+>>>>>>> origin/Davy_brench
 
 'providers' => [
     'users' => [
@@ -50,7 +71,14 @@ return [
         'model' => App\Models\User::class,
     ],
 
+<<<<<<< HEAD
     
+=======
+    'mahasiswas' => [          
+        'driver' => 'eloquent',
+        'model' => App\Models\Mahasiswa::class,
+    ],
+>>>>>>> origin/Davy_brench
 ],
 
     /*

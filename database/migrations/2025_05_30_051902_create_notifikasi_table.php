@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reminders', function (Blueprint $table) {
+        Schema::create('notifikasi', function (Blueprint $table) {
             $table->id();
-<<<<<<< HEAD
-=======
+            $table->unsignedBigInteger('mahasiswa_id');
             $table->string('judul');
-            $table->text('deskripsi')->nullable();
-            $table->dateTime('waktu');
->>>>>>> origin/Davy_brench
+            $table->text('isi');
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
+
+            $table->foreignId('mahasiswa_id')->references('id')->on('mahasiswa')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reminders');
+        Schema::dropIfExists('notifikasi');
     }
 };
