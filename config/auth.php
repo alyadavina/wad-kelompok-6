@@ -41,10 +41,6 @@ return [
         'provider' => 'users',
     ],
 
-<<<<<<< HEAD
-    
-],
-=======
     'mahasiswa' => [
         'driver' => 'session',
         'provider' => 'mahasiswas',
@@ -63,7 +59,6 @@ return [
     | Supported: "database", "eloquent"
     |
     */
->>>>>>> origin/Davy_brench
 
 'providers' => [
     'users' => [
@@ -71,14 +66,10 @@ return [
         'model' => App\Models\User::class,
     ],
 
-<<<<<<< HEAD
-    
-=======
     'mahasiswas' => [          
         'driver' => 'eloquent',
         'model' => App\Models\Mahasiswa::class,
     ],
->>>>>>> origin/Davy_brench
 ],
 
     /*

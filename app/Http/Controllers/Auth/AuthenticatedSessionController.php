@@ -16,11 +16,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-<<<<<<< HEAD
-        return view('auth.login');
-=======
         return view('login');
->>>>>>> origin/Davy_brench
     }
 
     /**
@@ -28,25 +24,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-<<<<<<< HEAD
-        if (!Auth::user()->attempt($request->only('email', 'password'))) {
-            return back()->withErrors([
-            'email' => 'Email atau password salah',
-        ]);
-
-=======
         if (!Auth::guard('mahasiswa')->attempt($request->only('email', 'password'))) {
         return back()->withErrors(['email' => 'Email atau password salah']);
->>>>>>> origin/Davy_brench
         }
 
         $request->session()->regenerate();
 
-<<<<<<< HEAD
-        return redirect()->intended(route('dashboard', absolute: false));
-=======
         return redirect()->intended(route('dashboard'));
->>>>>>> origin/Davy_brench
     }
 
     /**
@@ -54,20 +38,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-<<<<<<< HEAD
-        Auth::user()->logout();
-=======
         Auth::guard('mahasiswa')->logout();
->>>>>>> origin/Davy_brench
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-<<<<<<< HEAD
-        return redirect('/');
-=======
         return redirect('/login');
->>>>>>> origin/Davy_brench
     }
 }

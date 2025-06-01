@@ -6,10 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Beasiswa;
 use App\Models\Mahasiswa;
 use App\Models\FavoriteBeasiswa;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Facades\Auth;
->>>>>>> origin/Davy_brench
 
 class DashboardController extends Controller
 {
