@@ -24,7 +24,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        if (!Auth::guard('mahasiswa')->attempt($request->only('email', 'password'))) {
+        if (!Auth::user()->attempt($request->only('email', 'password'))) {
             return back()->withErrors([
             'email' => 'Email atau password salah',
         ]);
@@ -41,7 +41,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('mahasiswa')->logout();
+        Auth::user()->logout();
 
         $request->session()->invalidate();
 

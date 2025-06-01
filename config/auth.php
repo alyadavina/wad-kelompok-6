@@ -41,10 +41,7 @@ return [
         'provider' => 'users',
     ],
 
-    'mahasiswa' => [             
-        'driver' => 'session',
-        'provider' => 'mahasiswas',  
-    ],
+    
 ],
 
 'providers' => [
@@ -53,10 +50,7 @@ return [
         'model' => App\Models\User::class,
     ],
 
-    'mahasiswas' => [            
-        'driver' => 'eloquent',
-        'model' => App\Models\Mahasiswa::class,
-    ],
+    
 ],
 
     /*

@@ -73,11 +73,14 @@ class AuthController extends Controller
 
             $user = Auth::user();
 
-            // Redirect berdasarkan role
+            
             if ($user->role === 'admin') {
-                return redirect()->route('dashboard.admin');
+                return redirect()->route('dashboard');
             } elseif ($user->role === 'mahasiswa') {
-                return redirect()->route('dashboard.mahasiswa');
+                return redirect()->route('dashboard');
+            } else {
+               // Auth::logout();
+                return redirect()->route('login.form')->withErrors(['email' => 'Role tidak dikenali.']);
             }
         }
 

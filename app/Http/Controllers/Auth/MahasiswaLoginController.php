@@ -20,7 +20,7 @@ class MahasiswaLoginController extends Controller
             'password' => 'required'
         ]);
 
-        if (Auth::guard('mahasiswa')->attempt([
+        if (Auth::user()->attempt([
             'email' => $request->email,
             'password' => $request->password
         ], $request->remember)) {
@@ -34,7 +34,7 @@ class MahasiswaLoginController extends Controller
 
     public function logout()
     {
-        Auth::guard('mahasiswa')->logout();
+        Auth::user()->logout();
         return redirect('/login');
     }
 }

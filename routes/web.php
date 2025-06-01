@@ -12,10 +12,11 @@ Route::get('/', function () {
 });
 
 
-Route::middleware('auth:mahasiswa')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');})->name('dashboard'); 
-    });
+        return view('dashboard');
+    })->name('dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -32,7 +33,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
 
 Route::post('/favorite', [FavoriteController::class, 'store'])->name('favorit.store');
 Route::get('/favorite', [FavoriteController::class, 'index'])->name('favorit.index');
