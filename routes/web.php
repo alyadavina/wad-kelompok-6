@@ -6,6 +6,8 @@ use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\Auth\MahasiswaLoginController;
 use App\Http\Controllers\Admin\NotifikasiAdminController;
 use App\Http\Controllers\Admin\BeasiswaAdminController;
+use App\Http\Controllers\Admin\AdminPenggunaController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,6 +46,8 @@ Route::get('/admindashboard', function () {
 })->name('admin.dashboard');
 
 
+Route::get('/admin/listusers', [AdminPenggunaController::class, 'index'])->name('admin.users');
+    
 
 Route::get('/login', [MahasiswaLoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [MahasiswaLoginController::class, 'login'])->name('mahasiswa.login.submit');

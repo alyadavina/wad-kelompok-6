@@ -23,7 +23,12 @@ class NotifikasiAdminController extends Controller
     public function edit($id)
     {
         $notifikasi = Notifikasi::findOrFail($id);
-        return view('Admin.admin_notifikasi_edit', compact('notifikasi'));
+        $semuaNotifikasi = Notifikasi::all();
+        return view('Admin.admin_notifikasi', [
+        'notifikasi' => $notifikasi,
+        'semuaNotifikasi' => $semuaNotifikasi,
+        'mode' => 'edit'
+    ]);
     }
 
     public function update(Request $request, $id)

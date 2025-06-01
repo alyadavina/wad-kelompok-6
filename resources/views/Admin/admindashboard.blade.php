@@ -47,7 +47,7 @@
             <div class="col-md-2 sidebar">
                 <a href="/admin/beasiswa">Atur Beasiswa</a>
                 <a href="/admin/notifikasi">Kelola Notifikasi</a>
-                <a href="#">Keluar</a>
+                <a href="/admin/listusers">Lihat Daftar Pengguna</a>
             </div>
             <div class="col-md-10 content">
                 <h1 class="mb-4">Selamat Datang, Admin</h1>
